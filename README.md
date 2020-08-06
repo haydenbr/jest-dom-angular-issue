@@ -1,27 +1,35 @@
-# JestDomAngularIssue
+# Jest Dom Angular Issue
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+When attempting to import `jest-dom` (via `import '@testing-library/jest-dom'` in `setup-jest.ts`) I get the following error when trying to run jest:
 
-## Development server
+```
+FAIL  src/app/app.component.spec.ts
+● Test suite failed to run
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+	TypeError: Cannot set property 'escape' of null
 
-## Code scaffolding
+		1 | import 'jest-preset-angular';
+		2 | import './jest-global-mocks';
+	> 3 | import '@testing-library/jest-dom'
+			| ^
+		4 |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+		at node_modules/css.escape/css.escape.js:103:18
+		at Object.<anonymous> (src/setup-jest.ts:3:1)
+```
 
-## Build
+I've copied the contents of the npm debug report to this repo at `./debug.log`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+System information:
 
-## Running unit tests
+node: v12.18.3
+npm: 6.14.6
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+I setup jest according to [jest-preset-angular](https://github.com/thymikee/jest-preset-angular)
 
-## Running end-to-end tests
+Steps to reproduce:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+npm install
+npm run test
+```
